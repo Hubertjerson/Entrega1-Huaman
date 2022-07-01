@@ -2,7 +2,7 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
 from blog.forms import formBlog, busquedaAuthor
-from blog.models import Blog
+from blog.models import Blog, Games
 # Create your views here.
 
 
@@ -51,3 +51,7 @@ def blog_post(request):
 
     posts = busquedaAuthor()
     return render(request, 'blogPost.html', {'post': post, 'posts': posts})
+
+def games(request):
+    juegos = Games.objects.all()
+    return render(request, 'games.html', {'juegos': juegos})

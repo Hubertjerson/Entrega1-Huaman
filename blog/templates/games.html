@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+{%load static %}
+{% block hero %}
+<section class="page-info-section set-bg" data-setbg={% static "img/page-top-bg/3.jpg" %}>
+    <div class="pi-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 text-white">
+                    <h2>{% block titulo_hero %}Games{% endblock titulo_hero %}</h2>
+                    <p class="font-weight-bold h5">{% block texto_hero %}Los Juegos del Momento.{% endblock texto_hero%}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block info %}
+<section class="review-section review-dark spad set-bg" data-setbg={% static "img/review-bg-2.jpg" %}>
+    <div class="text-center text-white h1">Games</div>
+    <div style="
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    ;">
+        <div class="text-white" style="
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: space-between;
+        margin:25px 0 0 25px;">
+        </div>
+        {% for juegos in juegos %}
+        <div class="text-white" style ="
+        margin: 20px;">
+            <div class="">
+                <div class="">
+                    <img src="{{juegos.imagen.url}}" alt="{{post.title}}" style="width:500px; height:300px" />
+                    <div class="review-text">
+                        <h5>{{ juegos.nombre }}</h5>
+                        <p>{{ juegos.contenido }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+
