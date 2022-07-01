@@ -1,21 +1,56 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<div class="row my-4 text-center">
-  <h1>Soy un Post</h1>
-
-  {% for post in posts %}
-  <div class="col-md-4 p-4">
-    <div class="card bg-black card-project">
-      <img src="{{post.image.url}}" alt="{{post.title}}" class="card-img-top" />
-
-      <div class="card-body">
-        <h2 >{{post.title }}</h2>
-        <p >{{ post.description|striptags|truncatechars:100 }}</p>
-        <h3 >{{post.fecha_creacion|date:'M d Y'|upper}}</h3>
+{% extends 'home.html' %}
+{%load static%}
+{% block title %}<title>Game Warrior Post</title>{% endblock title %}
+{% block hero %}
+{% include 'partials/new.html' %}
+<section class="page-info-section set-bg" data-setbg={% static "img/page-top-bg/4.jpg" %}>
+  <div class="pi-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6 text-white">
+          <h2>{% block titulo_hero %}Nuestra Comunidad {% endblock titulo_hero %}</h2>
+          <p class="font-weight-bold">{% block texto_hero %} Cuentanos tu experiencias que has tenido y comparte con gente de todo el mundo {% endblock texto_hero%}</p>
+        </div>
       </div>
     </div>
   </div>
-  {% endfor %}
-</div>
+</section>
+{% endblock %}
+
+
+{% block info %}
+<section class="page-section community-page set-bg" data-setbg={% static "img/community-bg.jpg" %}>
+  <div class="community-warp spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="community-top-title">Post</h3>
+        </div>
+        <div class="col-md-6 text-lg-right">
+            <form class="community-filter" action="{% url 'blog_post' %}">
+              {{posts}}
+              <button>Buscar</button>
+            </form>
+        </div>
+      </div>
+      {% if posts %}
+      <ul class="community-post-list">
+        {% for post in post %}
+        <li>
+          <div class="community-post">
+            <div class="post-content">
+              <h5>{{post.author }}<span>{{post.title }}</span></h5>
+              <div class="post-date">{{post.fecha_creacion|date:'M d Y'|upper}}</div>
+              <p>{{ post.contenido|striptags|truncatechars:100 }}</p>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      No se encontraron datos.
+      {% endif %}
+    </div>
+  </div>
+</section>
 {% endblock %}

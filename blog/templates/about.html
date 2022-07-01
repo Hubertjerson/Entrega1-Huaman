@@ -1,10 +1,27 @@
-{% extends 'base.html' %}
-{% include 'partials/navbar.html' %}
-{% block content %}
-<header class="row bg-black">  
-    <div class="col-md-8 my-auto p-4">
-      <h1><strong>Jerson Huaman</strong></h1>
-      <h3>Un poco Sobre Mi</h3>
+{% extends 'home.html' %}
+{%load static%}
+{% block title %}<title>Game Warrior About</title>{% endblock title %}
+
+{% block hero %}
+<section class="page-info-section set-bg" data-setbg={% static "img/page-top-bg/2.jpg" %}>
+  <div class="pi-content">
+    <div class="container">
+      <div>
+        <div class="col-xl-5 col-lg-6 text-white">
+          <h2 class=>{% block titulo_hero %}About{% endblock titulo_hero %}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+
+{% block info %}
+<section class="recent-game-section spad set-bg" data-setbg={% static "img/recent-game-bg.png" %}>
+  <div class="container">
+    <div class="section-title">
+      <h2>Un poco Sobre Mi</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis tempora perspiciatis molestias iusto ducimus
         soluta mollitia ratione, fuga praesentium, reiciendis minima! Facere, veniam! Omnis, quod molestias quo fugit enim
         vero vitae, cumque tenetur at, impedit provident dicta laudantium quia facilis consequuntur blanditiis iste
@@ -14,5 +31,6 @@
         exercitationem nemo soluta, culpa impedit est et doloribus ut necessitatibus odit, dicta voluptate! Vero ab nulla
         placeat.</p>
     </div>
-  </header>
+  </div>
+</section>
   {% endblock %}

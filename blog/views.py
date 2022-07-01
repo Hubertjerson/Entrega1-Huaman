@@ -1,51 +1,53 @@
-from datetime import datetime
-from django.shortcuts import render
 
-from blog.forms import FormBlog
+from datetime import datetime
+from django.shortcuts import redirect, render
+from blog.forms import formBlog, busquedaAuthor
 from blog.models import Blog
 # Create your views here.
-
-
-def about(request):
-    return render(request,'about.html')
 
 
 def home(request):
     return render(request, 'home.html')
 
 
-def blog_post(request):
-    posts = Blog.objects.all()
-    return render(request, 'blogPost.html', {'posts': posts})
+def about(request):
+    return render(request, 'about.html')
 
 
-def blog_get(request):
+def create_blog(request):
 
     if request.method == 'POST':
-        form = FormBlog(request.POST, request.FILES)
-
+        form = formBlog(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
 
+            data = form.cleaned_data
             fecha = data.get('fecha_creacion')
+
             if not fecha:
                 fecha = datetime.now()
-
-            post_public = Blog(
+            post = Blog(
                 title=data.get('title'),
-                description=data.get('description'),
-                image=data.get('image'),
-                fecha_creacion=fecha,
+                author=data.get('author'),
+                contenido=data.get('contenido'),
+                fecha_creacion=fecha
             )
-            post_public.save()
-
-            posts = Blog.objects.all()
-            return render(request, 'blogPost.html', {'posts': posts})
-            #return redirect('blog_post')
-
+            post.save()
+            return redirect('blog_post')
         else:
-            return render(request, 'blogGet.html', {'form': form})
+            return render(request, 'crearBlog.html', {'form': form})
+    blog = formBlog()
 
-    form_blog = FormBlog()
+    return render(request, 'crearBlog.html', {'form': blog})
 
-    return render(request, 'blogGet.html', {'form': form_blog})
+
+def blog_post(request):
+
+    busqueda_author = request.GET.get('author')
+
+    if busqueda_author:
+        post = Blog.objects.filter(author__icontains=busqueda_author)
+    else:
+        post = Blog.objects.all()
+
+    posts = busquedaAuthor()
+    return render(request, 'blogPost.html', {'post': post, 'posts': posts})

@@ -1,0 +1,40 @@
+{% extends 'home.html' %}
+{%load static%}
+{% block title %}<title>Game Warrior Crear Post</title>{% endblock title %}
+{% block hero %}
+<section class="page-info-section set-bg" data-setbg={% static "img/page-top-bg/5.jpg" %}>
+    <div class="pi-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 text-white">
+                    <h2>{% block titulo_hero %}Crear Un Post {% endblock titulo_hero %}</h2>
+                    <p class="font-weight-bold">{% block texto_hero %}Te gustaria Compartir tus experiencias en cualquier juego puedes hacerlo con nuestra comunidad {% endblock texto_hero%}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block section %}
+<div class="col-lg-8">
+    <div class="contact-form-warp">
+        <h4 class="comment-title">AQUI CREA TU POST</h4>
+        <form class="comment-form" method="post" action="{% url 'create_blog' %}">
+            <div class="container-center">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    Titulo: {{form.title}}
+                </div>
+                <div class="col-md-6">
+                    Author : {{form.author}}
+                </div>
+                <div class="col-lg-12">
+                    Contenido :{{form.contenido}}
+                </div>
+                <button class="site-btn btn-sm">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
